@@ -1,0 +1,122 @@
+@import 'tailwindcss';
+
+/* ============================================================================
+   LynkBridge design tokens
+   B2B operational tool: dense, high-contrast, low-decoration.
+   Tokens are the single source of visual truth - components never hardcode hex.
+   ========================================================================== */
+@theme {
+  /* Brand — deep "connectivity" blue, reserved for primary actions & active nav */
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #d9e6ff;
+  --color-brand-200: #bcd3ff;
+  --color-brand-300: #8eb6ff;
+  --color-brand-400: #598eff;
+  --color-brand-500: #3366f2;
+  --color-brand-600: #1f47d6;
+  --color-brand-700: #1a37ab;
+  --color-brand-800: #1b3187;
+  --color-brand-900: #1c2e6b;
+  --color-brand-950: #141d41;
+
+  /* Neutrals — the workhorse. Slate reads as "enterprise" without being cold. */
+  --color-ink-50: #f8fafc;
+  --color-ink-100: #f1f5f9;
+  --color-ink-200: #e2e8f0;
+  --color-ink-300: #cbd5e1;
+  --color-ink-400: #94a3b8;
+  --color-ink-500: #64748b;
+  --color-ink-600: #475569;
+  --color-ink-700: #334155;
+  --color-ink-800: #1e293b;
+  --color-ink-900: #0f172a;
+  --color-ink-950: #020617;
+
+  /* Status — used by StatusBadge only, so semantics stay consistent app-wide */
+  --color-ok-50: #ecfdf5;
+  --color-ok-200: #a7f3d0;
+  --color-ok-600: #059669;
+  --color-ok-700: #047857;
+  --color-warn-50: #fffbeb;
+  --color-warn-200: #fde68a;
+  --color-warn-600: #d97706;
+  --color-warn-700: #b45309;
+  --color-danger-50: #fef2f2;
+  --color-danger-200: #fecaca;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-info-50: #eff6ff;
+  --color-info-200: #bfdbfe;
+  --color-info-600: #2563eb;
+  --color-info-700: #1d4ed8;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+  /* Tighter than Tailwind's default — data density is a stated requirement */
+  --radius-card: 0.5rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink-100 text-ink-800 font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Visible focus everywhere — accessibility is a stated design requirement */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+
+  th {
+    @apply text-left font-semibold;
+  }
+}
+
+@layer components {
+  /* Surface = the standard white panel every list/detail sits on */
+  .surface {
+    @apply bg-white border border-ink-200 rounded-[--radius-card];
+  }
+
+  /* Table cells: one place to tune density for the whole product */
+  .cell {
+    @apply px-4 py-2.5 text-sm align-middle;
+  }
+
+  .cell-head {
+    @apply px-4 py-2.5 text-xs uppercase tracking-wide text-ink-500 font-semibold whitespace-nowrap;
+  }
+}
+
+/* Custom scrollbars keep dense table regions from looking unfinished */
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-300);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-400);
+    background-clip: content-box;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

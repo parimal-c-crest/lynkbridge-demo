@@ -1,0 +1,33 @@
+{
+  "name": "lynkbridge-portal-prototype",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "LynkBridge B2B multi-tenant customer portal - static clickable SPA prototype",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit",
+    "verify:routes": "node scripts/verify-routes.mjs",
+    "verify:data": "esbuild scripts/verify-prototype-data.ts --bundle --platform=node --format=esm --alias:@=./src --outfile=node_modules/.cache/verify-data.mjs --log-level=error && node node_modules/.cache/verify-data.mjs",
+    "verify": "npm run typecheck && npm run verify:routes && npm run verify:data && npm run verify:render",
+    "verify:render": "esbuild scripts/verify-render.tsx --bundle --platform=node --format=esm --jsx=automatic --alias:@=./src --outfile=node_modules/.cache/verify-render.mjs --log-level=error --external:react --external:react-dom --external:react-router-dom --external:lucide-react && node node_modules/.cache/verify-render.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.469.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}
