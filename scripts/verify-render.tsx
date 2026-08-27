@@ -102,6 +102,7 @@ const CASES: Case[] = [
   { path: '/admin/dashboard', email: 'admin@demo.com', expect: 'Monthly cost by carrier' },
   { path: '/admin/customers', email: 'admin@demo.com', expect: 'Acme Corporation' },
   { path: '/admin/customers/t-northwind', email: 'admin@demo.com', expect: 'Northwind Retail Group' },
+  { path: '/admin/customers/new', email: 'admin@demo.com', expect: 'Add a customer' },
   { path: '/admin/locations', email: 'admin@demo.com', expect: 'Customer' },
   { path: `/admin/locations/${anyLocation.id}`, email: 'admin@demo.com', expect: anyLocation.city },
   { path: '/admin/services', email: 'admin@demo.com', expect: 'Contract End' },
@@ -123,6 +124,7 @@ const CASES: Case[] = [
   { path: `/admin/tickets/${anyTicket.id}`, email: 'admin@demo.com', expect: 'Ticket information' },
   { path: '/admin/imports', email: 'admin@demo.com', expect: 'Columns expected for' },
   { path: '/admin/users', email: 'admin@demo.com', expect: 'Last Login' },
+  { path: '/admin/users/new', email: 'admin@demo.com', expect: 'Add a user' },
   { path: `/admin/users/${anyUser.id}`, email: 'admin@demo.com', expect: 'Last sign-in' },
 
   // Reports and Settings
@@ -155,6 +157,8 @@ const CASES: Case[] = [
   // Wrong-role URLs are rejected by the guard before any content renders
   { path: '/admin/imports', email: 'customer@demo.com', expectBlockedByGuard: true },
   { path: '/admin/customers', email: 'customer@demo.com', expectBlockedByGuard: true },
+  { path: '/admin/customers/new', email: 'customer@demo.com', expectBlockedByGuard: true },
+  { path: '/admin/users/new', email: 'customer@demo.com', expectBlockedByGuard: true },
   { path: '/customer/dashboard', email: 'admin@demo.com', expectBlockedByGuard: true },
   // Signed-out access to an authenticated route is likewise blocked
   { path: '/customer/dashboard', email: null, expectBlockedByGuard: true },

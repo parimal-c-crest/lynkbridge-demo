@@ -1,8 +1,10 @@
+import { Plus } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { PageContainer } from '@/components/layout/PageContainer'
 import { CollectionTable } from '@/components/data/CollectionTable'
 import { DetailCard, FieldGrid } from '@/components/ui/DetailCard'
 import { StatusBadge } from '@/components/ui/StatusBadge'
+import { LinkButton } from '@/components/ui/Button'
 import { Alert } from '@/components/ui/Alert'
 import { ProtoNote } from '@/components/ui/ProtoNote'
 import { useCollection } from '@/lib/useCollection'
@@ -59,6 +61,11 @@ export function UsersListPage() {
     <PageContainer
       title="Users & roles"
       description="Everyone with access to the platform, across LynkBridge and its customers."
+      actions={
+        <LinkButton to="/admin/users/new" variant="primary" icon={<Plus className="size-4" />}>
+          Add user
+        </LinkButton>
+      }
     >
       <CollectionTable
         collection={collection}
@@ -141,9 +148,10 @@ export function UserDetailPage() {
         />
       </DetailCard>
 
-      <Alert tone="info" title="User administration is not implemented">
-        Inviting, editing, disabling and permission assignment are out of scope for this prototype. What a LynkBridge
-        administrator may change about a customer user has not been defined.
+      <Alert tone="info" title="Editing a user is not implemented">
+        A user can be added from the list screen, but editing, disabling and permission assignment are out of scope for
+        this prototype. Nor is any invitation actually sent. What a LynkBridge administrator may change about a
+        customer user has not been defined.
       </Alert>
     </PageContainer>
   )

@@ -55,6 +55,16 @@ export const ASSUMPTIONS: RegisterItem[] = [
     detail: 'Circuits carry no tenant of their own — they are scoped through their parent service.',
   },
   {
+    area: 'Customer creation',
+    detail:
+      'Adding a customer records the company and its primary contact, and nothing else. The short code that appears in circuit IDs is derived from the name as a convenience and stays editable — whether codes are assigned by LynkBridge or agreed with the customer is unconfirmed, as is everything else onboarding involves.',
+  },
+  {
+    area: 'User creation',
+    detail:
+      'Adding a user records who someone is, which company they belong to and which of the two roles they hold. A new user defaults to Invited and has never signed in. No invitation is sent, no credential is set, and no permission beyond the role is offered.',
+  },
+  {
     area: 'Document links',
     detail:
       'A document points at one typed record (customer, location, service, circuit or contract) rather than a single free-text field, so both the Location and Related Entity columns can resolve.',

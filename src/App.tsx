@@ -11,10 +11,12 @@ import { ProfilePage } from '@/pages/customer/ProfilePage'
 
 import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage'
 import { CustomersListPage } from '@/pages/admin/CustomersListPage'
+import { CustomerCreatePage } from '@/pages/admin/CustomerCreatePage'
 import { CustomerDetailPage } from '@/pages/admin/CustomerDetailPage'
 import { CarrierDetailPage, CarriersListPage } from '@/pages/admin/CarriersPages'
 import { ImportsPage } from '@/pages/admin/ImportsPage'
 import { UserDetailPage, UsersListPage } from '@/pages/admin/UsersPages'
+import { UserCreatePage } from '@/pages/admin/UserCreatePage'
 
 import { LocationsListPage } from '@/pages/shared/LocationsListPage'
 import { LocationCreatePage } from '@/pages/shared/LocationCreatePage'
@@ -85,6 +87,7 @@ export function App() {
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
           <Route path="/admin/customers" element={<CustomersListPage />} />
+          <Route path="/admin/customers/new" element={<CustomerCreatePage />} />
           <Route path="/admin/customers/:id" element={<CustomerDetailPage />} />
           <Route path="/admin/locations" element={<LocationsListPage />} />
           <Route path="/admin/locations/new" element={<LocationCreatePage />} />
@@ -107,6 +110,7 @@ export function App() {
           <Route path="/admin/tickets/:id" element={<TicketDetailPage />} />
           <Route path="/admin/imports" element={<ImportsPage />} />
           <Route path="/admin/users" element={<UsersListPage />} />
+          <Route path="/admin/users/new" element={<UserCreatePage />} />
           <Route path="/admin/users/:id" element={<UserDetailPage />} />
           <Route path="/admin/reports" element={<ReportsListPage />} />
           <Route path="/admin/reports/:id" element={<ReportViewPage />} />

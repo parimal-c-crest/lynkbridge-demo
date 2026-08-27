@@ -1,4 +1,6 @@
+import { Plus } from 'lucide-react'
 import { PageContainer } from '@/components/layout/PageContainer'
+import { LinkButton } from '@/components/ui/Button'
 import { CollectionTable } from '@/components/data/CollectionTable'
 import { StatusBadge } from '@/components/ui/StatusBadge'
 import { useCollection } from '@/lib/useCollection'
@@ -68,6 +70,11 @@ export function CustomersListPage() {
     <PageContainer
       title="Customers"
       description="Every company on the platform, with the size of its estate and its current standing."
+      actions={
+        <LinkButton to="/admin/customers/new" variant="primary" icon={<Plus className="size-4" />}>
+          Add customer
+        </LinkButton>
+      }
     >
       <CollectionTable
         collection={collection}

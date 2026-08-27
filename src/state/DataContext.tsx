@@ -16,9 +16,14 @@ import type {
   RelatedEntityType,
   Service,
   ServiceType,
+  Tenant,
+  TenantStatus,
   Ticket,
   TicketPriority,
   TicketStatus,
+  User,
+  UserRole,
+  UserStatus,
 } from '@/data/types'
 import { useSession } from './SessionContext'
 
@@ -63,6 +68,29 @@ interface RecordImportInput {
   warnings: number
   errors: number
   runBy: string
+}
+
+interface CreateTenantInput {
+  name: string
+  code: string
+  industry: string
+  status: TenantStatus
+  onboardedAt: string
+  primaryContact: string
+  primaryEmail: string
+  phone: string
+  hqCity: string
+  hqState: string
+}
+
+interface CreateUserInput {
+  /** null for LynkBridge staff — the role decides, not the form. */
+  tenantId: Id | null
+  name: string
+  email: string
+  role: UserRole
+  title: string
+  status: UserStatus
 }
 
 interface CreateLocationInput {
@@ -124,6 +152,8 @@ interface CreateCircuitInput extends CircuitDetailsInput {
 
 interface DataContextValue {
   data: Dataset
+  createTenant: (input: CreateTenantInput) => Tenant
+  createUser: (input: CreateUserInput) => User
   createLocation: (input: CreateLocationInput) => Location
   createContract: (input: CreateContractInput) => Contract
   createService: (input: CreateServiceInput) => Service
@@ -143,6 +173,32 @@ const DataContext = createContext<DataContextValue | null>(null)
 export function DataProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<Dataset>(seedDataset)
   const [hasLocalChanges, setHasLocalChanges] = useState(false)
+
+  const createTenant = useCallback((input: CreateTenantInput): Tenant => {
+    let created!: Tenant
+
+    setData((current) => {
+      created = { id: `ten-local-${current.tenants.length + 1}`, ...input }
+      return { ...current, tenants: [created, ...current.tenants] }
+    })
+
+    setHasLocalChanges(true)
+    return created
+  }, [])
+
+  const createUser = useCallback((input: CreateUserInput): User => {
+    let created!: User
+
+    setData((current) => {
+      // A user created here has never signed in, so lastLoginAt is null rather
+      // than backdated to today.
+      created = { id: `usr-local-${current.users.length + 1}`, ...input, lastLoginAt: null }
+      return { ...current, users: [created, ...current.users] }
+    })
+
+    setHasLocalChanges(true)
+    return created
+  }, [])
 
   const createLocation = useCallback((input: CreateLocationInput): Location => {
     let created!: Location
@@ -335,6 +391,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const value = useMemo(
     () => ({
       data,
+      createTenant,
+      createUser,
       createLocation,
       createContract,
       createService,
@@ -349,6 +407,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
     }),
     [
       data,
+      createTenant,
+      createUser,
       createLocation,
       createContract,
       createService,
